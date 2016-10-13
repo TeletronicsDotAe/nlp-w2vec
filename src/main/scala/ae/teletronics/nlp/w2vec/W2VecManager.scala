@@ -8,8 +8,7 @@ import org.apache.spark.mllib.feature.{Word2Vec, Word2VecModel}
 /**
   * Created by trym on 11-10-2016.
   */
-class W2VecManager extends Lifecycle {
-  private val modelPath = "spark-w2vec-model"
+class W2VecManager(modelPath:String = "spark-w2vec-text8-model") extends Lifecycle {
   private lazy val sc: SparkContext = initSC()
   private lazy val model = word2VecModel(sc)
 

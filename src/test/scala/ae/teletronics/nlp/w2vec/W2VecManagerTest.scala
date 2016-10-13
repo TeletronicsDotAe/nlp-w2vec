@@ -24,7 +24,7 @@ class W2VecManagerTest {
 
   @Test
   def testUsedInSameContext() = {
-    val w2VecManager = new W2VecManager()
+    val w2VecManager = new W2VecManager("src/main/resources/spark-w2vec-text8-model")
 
     measure("anarchist", w2VecManager)
     measure("hero", w2VecManager)
