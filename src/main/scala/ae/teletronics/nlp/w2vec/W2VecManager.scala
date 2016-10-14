@@ -14,14 +14,14 @@ class W2VecManager(modelPath:String = "spark-w2vec-text8-model") extends Lifecyc
 
   override def shutDown(): Unit = sc.stop()
 
-  def usedInSameContext(term: String): List[(String, Double)] = model.findSynonyms(term, 40).toList
+  def usedInSameContext(term: String, maxCount: Int): List[(String, Double)] = model.findSynonyms(term, maxCount).toList
 
   private def word2VecModel(sc: SparkContext) = {
     if (new File(modelPath).exists()) {
       Word2VecModel.load(sc, modelPath)
     } else {
+      // See also "Where to obtain the training data" at https://code.google.com/archive/p/word2vec/
       val file = "C:\\Users\\trym\\Downloads\\text8" // http://mattmahoney.net/dc/text8.zip
-      //      val file = "C:\\Users\\trym\\Downloads\\text8_partaa_partaa"
       val input = sc.textFile(file).map(line => line.split(" ").toSeq)
       val word2vec = new Word2Vec() // https://spark.apache.org/docs/2.0.1/api/java/org/apache/spark/mllib/feature/Word2Vec.html
       //      word2vec.setMinCount(100) // TODO this should resemble the size of the learning data (default is 5)

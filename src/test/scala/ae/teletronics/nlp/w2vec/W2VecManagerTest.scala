@@ -33,7 +33,7 @@ class W2VecManagerTest {
   }
   private def measure(term: String, manager: W2VecManager) = {
     val startT = System.currentTimeMillis()
-    manager.usedInSameContext(term).foreach(println)
+    manager.usedInSameContext(term, 40).foreach(println)
     println(s"\nusedInSameContext(${term}) took ${System.currentTimeMillis() - startT}")
   }
 
